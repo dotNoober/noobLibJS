@@ -1,19 +1,23 @@
 exports.random = function (min, max) {
     // Converting the inputs to floats for safe calculations
+    //**in the future compare to using unary plus operator min = +min;max = +max; */
+    //------------------------------------------------------------------------------
     min = parseFloat(min);
     max = parseFloat(max);
-    // If max ain't a number, then we check if min ain't a number too
-    if(Number.isNaN(max)) {
+    // If min ain't a number, then we check if max ain't a number too
+    if(Number.isNaN(min)) {
         // If both min and max ain't numbers, return NaN
-        if(Number.isNaN(min)) return NaN;
-        // If max ain't a number but min is, we swap 'em and set min to 0
-        max = min;
+        if(Number.isNaN(max)) return NaN;
+        // If min ain't a number but max is, we set min to 0
         min = 0;
-    }
+    // Else if min is a number but max ain't, we set max to 0
+    } else if(Number.isNaN(max)) max = 0;
     // If min and max are the same, then return that single number
     if(min === max) return min;
     // If min is greater than max, we gotta switch 'em up
     if(min > max) {
+        //** in the future compare to [min, max] = [max, min];  */
+        //---------------------------------------------------------
         const temp = min;
         min = max;
         max = temp;
