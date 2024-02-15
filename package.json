@@ -1,13 +1,22 @@
 {
   "name": "nooblibjs",
   "version": "0.0.0",
-  "description": "a collection of interesting javascript functions, that may or may not be useful, that I have come across in my learning journey",
-  "keywords": ["utility", "javascript"],
+  "description": "a collection of javascript functions, that may or may not be useful, as part of my learning journey",
+  "keywords": [
+    "utility",
+    "javascript"
+  ],
   "author": "dotNoober",
   "license": "Unlicense",
   "repository": {
     "type": "git",
     "url": "https://github.com/dotNoober/noobLibJS.git"
   },
-  "main": "index.js"
+  "main": "index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "devDependencies": {
+    "jest": "^29.7.0"
+  }
 }

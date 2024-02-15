@@ -1,4 +1,4 @@
-function random(min, max) {
+exports.random = function (min, max) {
     // Converting the inputs to floats for safe calculations
     min = parseFloat(min);
     max = parseFloat(max);
