@@ -1,9 +1,20 @@
-exports.random = function (min, max) {
+// Count the decimal places of a number
+exports.deciCount = (num) => {
+    // Converting the inputs to floats for safe calculations
+    num = Number.parseFloat(num);
+    // If num isn't a number, return NaN
+    if(Number.isNaN(num)) return NaN;
+    //return the calculated decimal place count
+    return (num.toString().split('.')[1] || '').length ;
+}
+
+// generate a random number in range
+exports.random = (min, max) => {
     // Converting the inputs to floats for safe calculations
     //**in the future compare to using unary plus operator min = +min;max = +max; */
     //------------------------------------------------------------------------------
-    min = parseFloat(min);
-    max = parseFloat(max);
+    min = Number.parseFloat(min);
+    max = Number.parseFloat(max);
     // If min ain't a number, then we check if max ain't a number too
     if(Number.isNaN(min)) {
         // If both min and max ain't numbers, return NaN
@@ -22,12 +33,8 @@ exports.random = function (min, max) {
         min = max;
         max = temp;
     }
-    // Calculate the range between max and min
-    const range = max - min;
-    // Count the decimal places of the range
-    const decimalPlaces = (range.toString().split('.')[1] || '').length;
     // Generate the random value within the range 
-    const randomValue = Math.random() * range + min;
+    const randomValue = Math.random() * (max - min) + min;
     // Return the random value with the same number of decimal places as the range
-    return parseFloat(randomValue.toFixed(decimalPlaces));
+    return Number.parseFloat(randomValue.toFixed(this.deciCount(max - min)));
 }

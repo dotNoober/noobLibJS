@@ -1,8 +1,17 @@
-const { random } = require('./index.js');
+const { random, deciCount } = require('../index.js');
 
 describe('random function', () => {
     test('returns NaN if both inputs are not numbers', () => {
         expect(random('a', 'b')).toBeNaN();
+        expect(random(true, 'a')).toBeNaN();
+        expect(random({}, 'a')).toBeNaN();
+
+    });
+
+    test('convert strings inputs to numbers when possible', () => {
+        expect(random('5', '5')).toBe(5);
+        expect(random('5.0', 5)).toBe(5);
+
     });
 
     test('returns the input number if min and max are the same', () => {
@@ -57,12 +66,6 @@ describe('random function', () => {
         const min = 1.111;
         const max = 10.1234;
         const result = random(min, max);
-        const decimalPlaces = (max.toString().split('.')[1] || '').length;
-        const resultDecimalPlaces = (result.toString().split('.')[1] || '').length;
-        expect(resultDecimalPlaces).toBe(decimalPlaces);
+        expect(deciCount(result)).toBe(deciCount(max));
     });
-
-    /**
-     * @todo: decimalPlaces is used in function and in test, could be a good seperate function to add to library.
-     */
 });
