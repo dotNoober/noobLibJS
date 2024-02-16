@@ -1,40 +1,47 @@
-// Count the decimal places of a number
-exports.deciCount = (num) => {
-    // Converting the inputs to floats for safe calculations
+/**
+ * @summary Counts the decimal places of a number.
+ * @description takes a number as input, converts it to a floating-point number, and then checks if it's a valid number. If it's not valid, it returns NaN. If it is valid, it counts the number of digits after the decimal point and returns that count.
+ * @example
+ * const decimalCount = deciCount(3.14);
+ * // Returns 2
+ * @param {number} num - The number to count decimal places for.
+ * @returns {number} The count of decimal places. Returns NaN if the input is not a number.
+ */
+deciCount = (num) => {
     num = Number.parseFloat(num);
-    // If num isn't a number, return NaN
     if(Number.isNaN(num)) return NaN;
-    //return the calculated decimal place count
     return (num.toString().split('.')[1] || '').length ;
 }
 
-// generate a random number in range
-exports.random = (min, max) => {
-    // Converting the inputs to floats for safe calculations
-    //**in the future compare to using unary plus operator min = +min;max = +max; */
-    //------------------------------------------------------------------------------
+/**
+ * @summary Generates a random number within a specified range, maintaining the same decimal precision as the inputs. 
+ * @description The min and max are converted into floating-point numbers. If either value is not a valid number, it attempts to handle the situation gracefully by setting it to 0 (if only one of them is not a number) or returning NaN (if both are not numbers). If the minimum value is greater than the maximum value, it swaps them to ensure the minimum value is less than or equal to the maximum value. The result is rounded to the same number of decimal places as the more precise of the maximum and minimum values.
+ * @example
+ * const randomNumber = random(10, 20.5);
+ * // Returns a random number between 10 and 20.5, with 1 decimal place.
+ * @param {number} min - The minimum value of the range (inclusive).
+ * @param {number} max - The maximum value of the range (inclusive).
+ * @returns {number} A random number within the specified range.
+ */
+random = (min, max) => {
+    /* In future iterations, consider using the unary plus operator to convert: min = +min; max = +max; */
     min = Number.parseFloat(min);
     max = Number.parseFloat(max);
-    // If min ain't a number, then we check if max ain't a number too
     if(Number.isNaN(min)) {
-        // If both min and max ain't numbers, return NaN
+        /* Consider returning 0 as a default value for consistency. */
         if(Number.isNaN(max)) return NaN;
-        // If min ain't a number but max is, we set min to 0
         min = 0;
-    // Else if min is a number but max ain't, we set max to 0
     } else if(Number.isNaN(max)) max = 0;
-    // If min and max are the same, then return that single number
     if(min === max) return min;
-    // If min is greater than max, we gotta switch 'em up
     if(min > max) {
-        //** in the future compare to [min, max] = [max, min];  */
-        //---------------------------------------------------------
+        /* In future iterations, consider swapping values with destructuring: [min, max] = [max, min];  */
         const temp = min;
         min = max;
         max = temp;
     }
-    // Generate the random value within the range 
     const randomValue = Math.random() * (max - min) + min;
-    // Return the random value with the same number of decimal places as the range
-    return Number.parseFloat(randomValue.toFixed(this.deciCount(max - min)));
+    return Number.parseFloat(randomValue.toFixed(Math.max(deciCount(max), deciCount(min))));
 }
+
+
+module.exports = { deciCount, random }

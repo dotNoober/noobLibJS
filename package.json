@@ -14,9 +14,11 @@
   },
   "main": "index.js",
   "scripts": {
-    "test": "jest"
+    "test": "jest",
+    "docs": "jsdoc"
   },
   "devDependencies": {
-    "jest": "^29.7.0"
+    "jest": "^29.7.0",
+    "jsdoc": "^4.0.2"
   }
 }
